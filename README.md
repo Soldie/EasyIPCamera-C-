@@ -105,7 +105,7 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 
 - 邮件：[support@easydarwin.org](mailto:support@easydarwin.org) 
 
-- QQ交流群：<a href="https://jq.qq.com/?_wv=1027&k=56D6ItR" target="_blank" title="EasyIPCamera">**692496281**</a>
+- QQ交流群：**692496281**
 
 > EasyIPCamera是一款免费的SDK产品，由于之前已经商业化了部分客户，所以暂时不能开源给大家，大家可以免费商用；
 
