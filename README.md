@@ -1,8 +1,8 @@
 # EasyIPCamera #
 
-EasyIPCamera是由[**EasyDarwin开源团队**](http://www.easydarwin.org "EasyDarwin")开发的一套非常稳定、易用、支持多种平台（包括Windows/Linux 32&64，Android，ARM hisiv100/hisiv200/hisiv300/hisiv400/hisiv500/hisiv600等平台）的RTSP-Server组件，适用于IPCamera、内网RTSP服务等RTSP流媒体服务器、内网单播同屏，接口调用非常简单成熟，调用者无需关注RTSPServer中关于客户端监听接入、音视频多路复用、RTSP具体流程、RTP打包与发送等相关问题，支持多种音视频格式，再也不用像调用live555 RTSPServer那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY/RTP/RTCP的复杂流程和担心内存释放的问题了！EasyIPCamera非常适合于安防领域、教育领域、互联网直播领域等；
+EasyIPCamera是由[**EasyDarwin开源团队**](http://www.easydarwin.org "EasyDarwin")开发的一套非常稳定、易用、支持多种平台（包括Windows/Linux 32&64，Android，ARM hisiv100/hisiv200/hisiv300/hisiv400/hisiv500/hisiv600等平台）的RTSP Server组件，适用于IPCamera、NVR、编码器、安卓监控设备等软硬件产品，接口调用非常简单成熟，调用者无需关注RTSP Server中关于客户端监听接入、音视频多路复用、RTSP具体流程、RTP打包与发送等相关问题，支持多种音视频格式，再也不用像调用live555 RTSPServer那样处理整个RTSP OPTIONS/DESCRIBE/SETUP/PLAY/RTP/RTCP的复杂流程和担心内存释放的问题了！EasyIPCamera非常适合于安防领域、教育领域、互联网直播等领域；
 
-BTW：EasyIPCamera在海思3156A芯片上的性能经过我们半年多的调试，目前已经可以稳定在20路1080P并发：
+BTW：EasyIPCamera非常适合在海思系列芯片上运行，性能以及稳定性都非常优秀，并发方面，稳定保持在20路1080P并发：
 
  - TCP/UDP 方式分别连接20路下，1080P 4M 定码率，音频格式G711（64K）G726（16K 24K 32K 40K）AAC(64K 96K 128K)都没问题；
  
@@ -50,6 +50,8 @@ BTW：EasyIPCamera在海思3156A芯片上的性能经过我们半年多的调试
 	<tr><td>海思</td><td>arm-hisiv200-linux</td><td>./Lib/hisiv200/</td></tr>
 	<tr><td>海思</td><td>arm-hisiv300-linux</td><td>./Lib/hisiv300/</td></tr>
 	<tr><td>海思</td><td>arm-hisiv400-linux</td><td>./Lib/hisiv400/</td></tr>
+	<tr><td>海思</td><td>arm-hisiv500-linux</td><td>./Lib/hisiv500/</td></tr>
+	<tr><td>海思</td><td>arm-hisiv600-linux</td><td>./Lib/hisiv600/</td></tr>
 	<tr><td colspan="3"><center>邮件获取更多平台版本</center></td></tr>
 	</table>
 
@@ -60,9 +62,11 @@ BTW：EasyIPCamera在海思3156A芯片上的性能经过我们半年多的调试
 
 
 ## 设计方法 ##
+
 EasyIPCamera参考live555 testProg中的testOnDemandRTSPServer示例程序，将一个live555 testOnDemandRTSPServer封装在一个类中，例如，我们称为Class EasyIPCamera，在EasyIPCamera_Create接口调用时，我们新建一个EasyIPCamera对象，再通过调用EasyIPCamera_Startup接口，将EasyIPCamera RTSPServer所需要的监听端口、认证信息、通道信息等参数输入到EasyIPCamera中后，EasyIPCamera就正式开始建立监听对外服务了，在服务的过程中，当有客户端的连接或断开，都会以回调事件的形式，通知给Controller调用者，调用者再具体来处理相关的回调任务，返回给EasyIPCamera，在EasyIPCamera服务的过程当中，如果回调要求需要Controller调用者提供音视频数据帧，Controller调用者可以通过EasyIPCamera_PushFrame接口，向EasyIPCamera输送具体的音视频帧数据，当调用者需要结束RTSPServer服务，只需要调用EasyIPCamera_Shutdown停止服务，再调用EasyIPCamera_Release释放EasyIPCamera就可以了，这样整个服务过程就完整了！
 
 ## Android同屏直播效果 ##
+
 上方的手机运行EasyIPCamera的屏幕推送功能，下面的手机使用EasyPlayer Android版本进行播放的 同屏直播效果。网络良好的时候延迟只有200多毫秒。
 
 <center>
@@ -113,10 +117,6 @@ EASY\_SDK\_AUDIO\_FRAME\_FLAG数据可支持多种音频格式：
 ## 获取更多信息 ##
 
 **EasyDarwin**开源流媒体服务器：[www.EasyDarwin.org](http://www.easydarwin.org)
-
-**EasyDSS**商用流媒体解决方案：[www.EasyDSS.com](http://www.easydss.com)
-
-**EasyNVR**无插件直播方案：[www.EasyNVR.com](http://www.easynvr.com)
 
 Copyright &copy; EasyDarwin Team 2012-2018
 
