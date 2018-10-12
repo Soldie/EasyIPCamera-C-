@@ -400,7 +400,7 @@ void CServerManager::StopCapture()
 	m_bDSCapture = FALSE;
 }
 
-int __EasyIPCamera_Callback(Easy_I32 channelId, EASY_IPCAMERA_STATE_T channelState, EASY_MEDIA_INFO_T *mediaInfo, void *userPtr)
+int __EasyIPCamera_Callback(Easy_I32 channelId, EASY_IPCAMERA_STATE_T channelState, EASY_MEDIA_INFO_T *mediaInfo, EASY_PLAY_CONTROL_INFO_T *playCtrlInfo, void *userPtr)
 {
 	// 	1. 调用 EasyIPCamera_Startup 设置监听端口、回调函数和自定义数据指针
 	// 		2. 启动后，程序进入监听状态

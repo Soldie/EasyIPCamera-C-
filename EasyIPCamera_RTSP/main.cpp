@@ -155,7 +155,7 @@ int CALLBACK __RTSPSourceCallBack( int _channelId, void *_channelPtr, int _frame
 
 
 //IPCameraSdk Callback
-Easy_I32 __EasyIPCamera_Callback(Easy_I32 channelId, EASY_IPCAMERA_STATE_T channelState, EASY_MEDIA_INFO_T *_mediaInfo, void *userPtr)
+Easy_I32 __EasyIPCamera_Callback(Easy_I32 channelId, EASY_IPCAMERA_STATE_T channelState, EASY_MEDIA_INFO_T *_mediaInfo, EASY_PLAY_CONTROL_INFO_T *playCtrlInfo, void *userPtr)
 {
 	RTSP_SOURCE_CHANNEL_T	*pChannel = (RTSP_SOURCE_CHANNEL_T *)userPtr;
 
