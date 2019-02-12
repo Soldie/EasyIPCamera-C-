@@ -13,14 +13,11 @@
 #include "GetVPSSPSPPS.h"
 
 #ifdef _WIN32
-#define KEY_EASYIPCAMERA "6D72754B7A4969576B5A734157424A5A7075326E7065704659584E35535642445957316C636D4666556C52545543356C65475658444661672F365867523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D"
-#define KEY_EASYRTSPCLIENT "79393674363469576B5A734157424A5A7075326E7065704659584E35535642445957316C636D4666556C52545543356C65475658444661672F365867523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D"
-#elif defined _ARM
-#define KEY_EASYIPCAMERA "6D72754B7A502B2B7262494157424A5A7075326E7065356C59584E356158426A5957316C636D4666636E527A6346634D5671442F7065424859585A7062695A4359574A76633246414D6A41784E6B566863336C4559584A33615735555A5746745A57467A65513D3D"
-#define KEY_EASYRTSPCLIENT "79393674362F2B2B7262494157424A5A7075326E7065356C59584E356158426A5957316C636D4666636E527A6346634D5671442F7065424859585A7062695A4359574A76633246414D6A41784E6B566863336C4559584A33615735555A5746745A57467A65513D3D"
-#else //x86 linux
-#define KEY_EASYIPCAMERA "6D72754B7A4A4F576B5971414268465A707537354A65356C59584E356158426A5957316C636D4666636E527A6346634D5671442F7065424859585A7062695A4359574A76633246414D6A41784E6B566863336C4559584A33615735555A5746745A57467A65513D3D"
-#define KEY_EASYRTSPCLIENT "7939367436354F576B5971414268465A707537354A65356C59584E356158426A5957316C636D4666636E527A6346634D5671442F7065424859585A7062695A4359574A76633246414D6A41784E6B566863336C4559584A33615735555A5746745A57467A65513D3D"
+#define KEY_EASYIPCAMERA "6D72754B7A4969576B5A754144474A636F353379792B704659584E35535642445957316C636D4666556C52545543356C65475658444661672F30766A5257467A65555268636E6470626C526C5957314A6331526F5A554A6C633352414D6A41784F47566863336B3D"
+#define KEY_EASYRTSPCLIENT "79393674363469576B5A754144474A636F35337A4A65704659584E35535642445957316C636D4666556C52545543356C65475658444661672F36586A5257467A65555268636E6470626C526C5957314A6331526F5A554A6C633352414D6A41784F47566863336B3D"
+#else //linux
+#define KEY_EASYIPCAMERA "6D72754B7A4A4F576B59714144474A636F35337A4A65356C59584E356158426A5957316C636D4666636E527A6346634D5671442F70654E4659584E355247467964326C755647566862556C7A5647686C516D567A644541794D4445345A57467A65513D3D"
+#define KEY_EASYRTSPCLIENT "7939367436354F576B596F41753242636F3539457065356C59584E356158426A5957316C636D4666636E527A6346634D5671442F70654E4659584E355247467964326C755647566862556C7A5647686C516D567A644541794D4445345A57467A65513D3D"
 #endif
 
 #define RTSP_SOURCE1 "rtsp://admin:admin@192.168.2.100/11"
@@ -47,7 +44,7 @@ typedef struct __RTSP_SOURCE_CHANNEL_T
 	char	password[16];
 }RTSP_SOURCE_CHANNEL_T;
 
-//RtspClient »Øµ÷
+//RtspClient ï¿½Øµï¿½
 int CALLBACK __RTSPSourceCallBack( int _channelId, void *_channelPtr, int _frameType, char *pBuf, RTSP_FRAME_INFO* _frameInfo)
 {
 	RTSP_SOURCE_CHANNEL_T	*pChannel = (RTSP_SOURCE_CHANNEL_T *)_channelPtr;
@@ -102,15 +99,15 @@ int CALLBACK __RTSPSourceCallBack( int _channelId, void *_channelPtr, int _frame
 				frame.pBuffer = (Easy_U8*)(sps);
 				frame.u32AVFrameFlag = EASY_SDK_VIDEO_FRAME_FLAG;
 				frame.u32AVFrameLen  = spslen;
-				frame.u32TimestampSec = 0;					//×¢:  Èç¹ûÊµ¼ÊÎªipc±àÂëµÄÁ÷,Ôò´Ë´¦ÌîÐ´±àÂëÊ±¼ä
-				frame.u32TimestampUsec = 0;					//×¢:  Èç¹ûÊµ¼ÊÎªipc±àÂëµÄÁ÷,Ôò´Ë´¦ÌîÐ´±àÂëÊ±¼ä
+				frame.u32TimestampSec = 0;					//×¢:  ï¿½ï¿½ï¿½Êµï¿½ï¿½Îªipcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+				frame.u32TimestampUsec = 0;					//×¢:  ï¿½ï¿½ï¿½Êµï¿½ï¿½Îªipcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 				EasyIPCamera_PushFrame(_channelId, &frame);
 
 				frame.pBuffer = (Easy_U8*)(pps);
 				frame.u32AVFrameFlag = EASY_SDK_VIDEO_FRAME_FLAG;
 				frame.u32AVFrameLen  = ppslen;
-				frame.u32TimestampSec = 0;					//×¢:  Èç¹ûÊµ¼ÊÎªipc±àÂëµÄÁ÷,Ôò´Ë´¦ÌîÐ´±àÂëÊ±¼ä
-				frame.u32TimestampUsec = 0;					//×¢:  Èç¹ûÊµ¼ÊÎªipc±àÂëµÄÁ÷,Ôò´Ë´¦ÌîÐ´±àÂëÊ±¼ä
+				frame.u32TimestampSec = 0;					//×¢:  ï¿½ï¿½ï¿½Êµï¿½ï¿½Îªipcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+				frame.u32TimestampUsec = 0;					//×¢:  ï¿½ï¿½ï¿½Êµï¿½ï¿½Îªipcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 				EasyIPCamera_PushFrame(_channelId, &frame);
 
 				printf("SPS: %02X%02X%02X%02X%02X\n", (unsigned char)sps[0], (unsigned char)sps[1],
@@ -123,8 +120,8 @@ int CALLBACK __RTSPSourceCallBack( int _channelId, void *_channelPtr, int _frame
 			frame.pBuffer = (Easy_U8*)(pBuf+iOffset+4);
 			frame.u32AVFrameFlag = EASY_SDK_VIDEO_FRAME_FLAG;
 			frame.u32AVFrameLen  = _frameInfo->length-iOffset-4;
-			frame.u32TimestampSec = 0;					//×¢:  Èç¹ûÊµ¼ÊÎªipc±àÂëµÄÁ÷,Ôò´Ë´¦ÌîÐ´±àÂëÊ±¼ä
-			frame.u32TimestampUsec = 0;					//×¢:  Èç¹ûÊµ¼ÊÎªipc±àÂëµÄÁ÷,Ôò´Ë´¦ÌîÐ´±àÂëÊ±¼ä
+			frame.u32TimestampSec = 0;					//×¢:  ï¿½ï¿½ï¿½Êµï¿½ï¿½Îªipcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+			frame.u32TimestampUsec = 0;					//×¢:  ï¿½ï¿½ï¿½Êµï¿½ï¿½Îªipcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 			EasyIPCamera_PushFrame(_channelId, &frame);
 		}
 	}
@@ -143,8 +140,8 @@ int CALLBACK __RTSPSourceCallBack( int _channelId, void *_channelPtr, int _frame
 			frame.pBuffer = (Easy_U8*)(pBuf);
 			frame.u32AVFrameFlag = EASY_SDK_AUDIO_FRAME_FLAG;
 			frame.u32AVFrameLen  = _frameInfo->length;
-			frame.u32TimestampSec = 0;					//×¢:  Èç¹ûÊµ¼ÊÎªipc±àÂëµÄÁ÷,Ôò´Ë´¦ÌîÐ´±àÂëÊ±¼ä
-			frame.u32TimestampUsec = 0;					//×¢:  Èç¹ûÊµ¼ÊÎªipc±àÂëµÄÁ÷,Ôò´Ë´¦ÌîÐ´±àÂëÊ±¼ä
+			frame.u32TimestampSec = 0;					//×¢:  ï¿½ï¿½ï¿½Êµï¿½ï¿½Îªipcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+			frame.u32TimestampUsec = 0;					//×¢:  ï¿½ï¿½ï¿½Êµï¿½ï¿½Îªipcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 			EasyIPCamera_PushFrame(_channelId, &frame);
 		}
 	}
@@ -163,11 +160,11 @@ Easy_I32 __EasyIPCamera_Callback(Easy_I32 channelId, EASY_IPCAMERA_STATE_T chann
 
 	if (channelState == EASY_IPCAMERA_STATE_REQUEST_MEDIA_INFO)
 	{
-		if (pChannel[channelId].sourceType == SOURCE_TYPE_FILE)		//ÎÄ¼þ
+		if (pChannel[channelId].sourceType == SOURCE_TYPE_FILE)		//ï¿½Ä¼ï¿½
 		{
 
 		}
-		else if (pChannel[channelId].sourceType == SOURCE_TYPE_RTSP)					//ÉãÏñ»ú
+		else if (pChannel[channelId].sourceType == SOURCE_TYPE_RTSP)					//ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			if (NULL != pChannel[channelId].rtspHandle)
 			{
@@ -186,7 +183,7 @@ Easy_I32 __EasyIPCamera_Callback(Easy_I32 channelId, EASY_IPCAMERA_STATE_T chann
 		printf("[channel %d] Get media info...\n", channelId);
 		for (int i=0; i<6; i++)
 		{
-			//×¢:   ´Ë´¦ÊÓÇé¿ö¶ø¶¨£¬ÅÐ¶ÏÊÇ·ñÐèÓÐÒôÆµ
+			//×¢:   ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµ
 			if ( pChannel[channelId].mediaInfo.u32VideoCodec > 0 )
 			{
 				memcpy(_mediaInfo, &pChannel[channelId].mediaInfo, sizeof(EASY_MEDIA_INFO_T));
@@ -235,7 +232,7 @@ Easy_I32 __EasyIPCamera_Callback(Easy_I32 channelId, EASY_IPCAMERA_STATE_T chann
 
 int main()
 {
-	//³õÊ¼»¯¸÷Í¨µÀÐÅÏ¢
+	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Ï¢
 	#define	MAX_CHANNEL_NUM			2
 
 	int rtspPort = 8554;
@@ -265,11 +262,11 @@ int main()
 		printf("rtsp url: rtsp://ip:%d/%s\n", rtspPort, channel[i].name);
 	}
 
-	//½ø³ÌÃû:  EasyIPCamera_RTSP.exe
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:  EasyIPCamera_RTSP.exe
 	int activate_ret = EasyRTSP_Activate(KEY_EASYRTSPCLIENT);
 	if (activate_ret < 0)
 	{
-		printf("¼¤»îlibEasyRTSPClientÊ§°Ü: %d\n", activate_ret);
+		printf("ï¿½ï¿½ï¿½ï¿½libEasyRTSPClientÊ§ï¿½ï¿½: %d\n", activate_ret);
 	}
 
 	LIVE_CHANNEL_INFO_T	liveChannel[MAX_CHANNEL_NUM];
@@ -283,18 +280,18 @@ int main()
 	activate_ret = EasyIPCamera_Activate(KEY_EASYIPCAMERA);
 	if (activate_ret < 0)
 	{
-		printf("¼¤»îlibEasyIPCameraÊ§°Ü: %d\n", activate_ret);
+		printf("ï¿½ï¿½ï¿½ï¿½libEasyIPCameraÊ§ï¿½ï¿½: %d\n", activate_ret);
 	}
 
 	EasyIPCamera_Startup(rtspPort, AUTHENTICATION_TYPE_BASIC,"", (unsigned char*)"", (unsigned char*)"", __EasyIPCamera_Callback, (void *)&channel[0], &liveChannel[0], MAX_CHANNEL_NUM);
 	//EasyIPCamera_Startup(554, NULL, NULL, __EasyIPCamera_Callback, (void *)&channel[0], &liveChannel[0], MAX_CHANNEL_NUM);
 
 
-	printf("°´»Ø³µ¼üÍË³ö.\n");
+	printf("ï¿½ï¿½ï¿½Ø³ï¿½ï¿½ï¿½ï¿½Ë³ï¿½.\n");
 	getchar();
 
 	
-	//ÏÈ¹Ø±ÕÔ´
+	//ï¿½È¹Ø±ï¿½Ô´
 	for (int i=0; i<MAX_CHANNEL_NUM; i++)
 	{
 		if (NULL != channel[i].rtspHandle)
@@ -305,7 +302,7 @@ int main()
 		}
 	}
 
-	//ÔÙ¹Ø±Õrtsp server
+	//ï¿½Ù¹Ø±ï¿½rtsp server
 	EasyIPCamera_Shutdown();
 
 	return 0;

@@ -28,8 +28,6 @@
 
 #ifdef _WIN32
 #define KEY_EASYIPCAMERA "6D72754B7A4969576B5A734144375A5970306E4A384F5A4659584E35535642445957316C636D46546157313162474630623349755A58686C567778576F4E6A7734456468646D6C754A6B4A68596D397A595541794D4445325257467A65555268636E6470626C526C5957316C59584E35"
-#elif def _ARM
-#define KEY_EASYIPCAMERA "6D72754B7A502B2B7262494144375A5970306E4A384F706C59584E356158426A5957316C636D467A615731316247463062334A584446616732504467523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D"
 #else //x86 linux
 #define KEY_EASYIPCAMERA "6D72754B7A4A4F576B596F4144375A5970306E4A384F706C59584E356158426A5957316C636D467A615731316247463062334A584446616732504467523246326157346D516D466962334E68514449774D545A4659584E355247467964326C75564756686257566863336B3D"
 #endif
@@ -41,7 +39,7 @@ char* ConfigIP	=	"127.0.0.1";			//Default EasyDarwin Address 183.220.236.189
 char* ConfigPort=	"8554";					//Default EasyDarwin Port121.40.50.44
 char* ConfigName=	"channel";	//Default RTSP Push StreamName
 char* H264FileName = "./channel0.h264";
-int	  OutputCount = 16;					//Êä³öÁ÷Â·Êý
+int	  OutputCount = 16;					//ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 
 HANDLE g_FileCapThread[MAX_CHANNELS] ;
 FILE * fES[MAX_CHANNELS];
@@ -64,7 +62,7 @@ typedef struct tagSOURCE_CHANNEL_T
 //Globle Func for thread callback
 unsigned int _stdcall  CaptureFileThread(void* lParam);
 
-	//1.»ñÈ¡Ö÷»úip  
+	//1.ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ip  
 bool GetLocalIP(char* ip)  
 {  
 	if ( !ip )
@@ -72,7 +70,7 @@ bool GetLocalIP(char* ip)
 		return false;
 	}
 #ifdef _WIN32
-	//1.³õÊ¼»¯wsa  
+	//1.ï¿½ï¿½Ê¼ï¿½ï¿½wsa  
 	HOSTENT* host;
 	WSADATA wsaData;  
 	int ret=WSAStartup(MAKEWORD(2,2),&wsaData);  
@@ -84,7 +82,7 @@ bool GetLocalIP(char* ip)
 	struct hostent *host;
 #endif
 
-	//2.»ñÈ¡Ö÷»úÃû  
+	//2.ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	char hostname[256];  
 	ret=gethostname(hostname,sizeof(hostname));  
 	if (ret==-1)  
@@ -97,7 +95,7 @@ bool GetLocalIP(char* ip)
 	{  
 		return false;  
 	}  
-	//4.×ª»¯Îªchar*²¢¿½±´·µ»Ø  
+	//4.×ªï¿½ï¿½Îªchar*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	strcpy(ip,inet_ntoa(*(in_addr*)*host->h_addr_list));  
 
 #ifdef _WIN32
@@ -110,7 +108,7 @@ bool GetLocalIP(char* ip)
 int GetAvaliblePort(int nPort)
 {
 #ifdef _WIN32
-	//1.³õÊ¼»¯wsa  
+	//1.ï¿½ï¿½Ê¼ï¿½ï¿½wsa  
 	HOSTENT* host;
 	WSADATA wsaData;  
 	int ret=WSAStartup(MAKEWORD(2,2),&wsaData);  
@@ -203,7 +201,7 @@ void PrintUsage()
 }
 
 
-//Ö÷º¯Êý--------------------------------------------
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------------
 int main(int argc, char * argv[])
 {
 	int isActivated = 0 ;
@@ -260,7 +258,7 @@ int main(int argc, char * argv[])
 	int activate_ret = EasyIPCamera_Activate(KEY_EASYIPCAMERA);
 	if (activate_ret < 0)
 	{
-		printf("¼¤»îlibEasyIPCameraÊ§°Ü: %d\n", activate_ret);
+		printf("ï¿½ï¿½ï¿½ï¿½libEasyIPCameraÊ§ï¿½ï¿½: %d\n", activate_ret);
 		printf("Press Enter exit...\n");
 		getchar();
 		exit(1);
@@ -269,7 +267,7 @@ int main(int argc, char * argv[])
 	bool bSuc = GetLocalIP(szIP);
 	if (!bSuc)
 	{
-		printf("»ñÈ¡±¾»úIPÊ§°Ü£¡\n");
+		printf("ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½IPÊ§ï¿½Ü£ï¿½\n");
 		printf("Press Enter exit...\n");
 		getchar();
 		return 0;
@@ -295,12 +293,12 @@ int main(int argc, char * argv[])
 		channels[i].mediaInfo.u32VideoCodec =   EASY_SDK_VIDEO_CODEC_H264;
 		channels[i].mediaInfo.u32VideoFps = 25;
 		
-		//´ò¿ªh264ÎÄ¼þ
+		//ï¿½ï¿½h264ï¿½Ä¼ï¿½
 		sprintf(sFileName, "./%s%d.h264", ConfigName, i);
 		fES[i] = fopen(sFileName, "rb");
 		if (NULL == fES[i] )       
 		{
-			printf("´ò¿ªÎÄ¼þ:   %s Ê§°Ü\n", sFileName);
+			printf("ï¿½ï¿½ï¿½Ä¼ï¿½:   %s Ê§ï¿½ï¿½\n", sFileName);
 			//printf("Press Enter exit...\n");
 			continue;
 		}
@@ -331,7 +329,7 @@ int main(int argc, char * argv[])
 // 		if (NULL == fES[i] )       
 // 		{
 // 
-// 			printf("´ò¿ªÎÄ¼þ:   %s Ê§°Ü\n", sFileName);
+// 			printf("ï¿½ï¿½ï¿½Ä¼ï¿½:   %s Ê§ï¿½ï¿½\n", sFileName);
 			//printf("Press Enter exit...\n");
 // 			continue;
 // 		}
@@ -355,7 +353,7 @@ int main(int argc, char * argv[])
 	}
 	Sleep(200);
 
-	//¹Ø±Õrtsp server
+	//ï¿½Ø±ï¿½rtsp server
 	EasyIPCamera_Shutdown();
 
 	for (int nCId = 0; nCId<OutputCount; nCId++)
@@ -371,7 +369,7 @@ int main(int argc, char * argv[])
     return 0;
 }
 
-//ÎÄ¼þ¶ÁÈ¡Ïß³Ì
+//ï¿½Ä¼ï¿½ï¿½ï¿½È¡ï¿½ß³ï¿½
 unsigned int _stdcall  CaptureFileThread(void* lParam)
 {
 	SOURCE_CHANNEL_T* pChannelInfo = (SOURCE_CHANNEL_T*)lParam;
@@ -389,7 +387,7 @@ unsigned int _stdcall  CaptureFileThread(void* lParam)
 	int timestamp = 0;
 	FILE* fES = (FILE*)pChannelInfo->anyHandle;
 
-	// Ïß³Ì¶ÁÈ¡ÎÄ¼þ´¦ÀíÍÆËÍ [3/21/2017 dingshuai]
+	// ï¿½ß³Ì¶ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ [3/21/2017 dingshuai]
 	while (pChannelInfo&&pChannelInfo->bThreadLiving)
 	{
 		int nReadBytes = fread(pbuf+position, 1, 1, fES);
@@ -450,8 +448,8 @@ unsigned int _stdcall  CaptureFileThread(void* lParam)
 					frame.pBuffer = (Easy_U8*)(pbuf+iOffset+4);
 					frame.u32AVFrameFlag = EASY_SDK_VIDEO_FRAME_FLAG;
 					frame.u32AVFrameLen  = framesize-iOffset-4;
-					frame.u32TimestampSec = 0;					//×¢:  Èç¹ûÊµ¼ÊÎªipc±àÂëµÄÁ÷,Ôò´Ë´¦ÌîÐ´±àÂëÊ±¼ä
-					frame.u32TimestampUsec = 0;					//×¢:  Èç¹ûÊµ¼ÊÎªipc±àÂëµÄÁ÷,Ôò´Ë´¦ÌîÐ´±àÂëÊ±¼ä
+					frame.u32TimestampSec = 0;					//×¢:  ï¿½ï¿½ï¿½Êµï¿½ï¿½Îªipcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+					frame.u32TimestampUsec = 0;					//×¢:  ï¿½ï¿½ï¿½Êµï¿½ï¿½Îªipcï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ë´ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
 					EasyIPCamera_PushFrame(nChannelId, &frame);
 				}
 
