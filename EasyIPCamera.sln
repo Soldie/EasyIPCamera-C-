@@ -7,8 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EasyIPCamera_Win", "EasyIPC
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EasyIPCameraSimulator", "EasyIPCameraSimulator\EasyIPCameraSimulator.vcxproj", "{D91D8F4A-C731-4543-B0F6-86ACDAB3ED39}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EasyIPCamera_SDK", "EasyIPCamera_SDK\EasyIPCamera_SDK.vcxproj", "{6907AA33-D74D-42F0-A40C-0332FCE736C7}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -35,14 +33,6 @@ Global
 		{D91D8F4A-C731-4543-B0F6-86ACDAB3ED39}.Release|Win32.ActiveCfg = Release|Win32
 		{D91D8F4A-C731-4543-B0F6-86ACDAB3ED39}.Release|Win32.Build.0 = Release|Win32
 		{D91D8F4A-C731-4543-B0F6-86ACDAB3ED39}.Release|x64.ActiveCfg = Release|Win32
-		{6907AA33-D74D-42F0-A40C-0332FCE736C7}.Debug|Win32.ActiveCfg = Debug|Win32
-		{6907AA33-D74D-42F0-A40C-0332FCE736C7}.Debug|Win32.Build.0 = Debug|Win32
-		{6907AA33-D74D-42F0-A40C-0332FCE736C7}.Debug|x64.ActiveCfg = Debug|x64
-		{6907AA33-D74D-42F0-A40C-0332FCE736C7}.Debug|x64.Build.0 = Debug|x64
-		{6907AA33-D74D-42F0-A40C-0332FCE736C7}.Release|Win32.ActiveCfg = Release|Win32
-		{6907AA33-D74D-42F0-A40C-0332FCE736C7}.Release|Win32.Build.0 = Release|Win32
-		{6907AA33-D74D-42F0-A40C-0332FCE736C7}.Release|x64.ActiveCfg = Release|x64
-		{6907AA33-D74D-42F0-A40C-0332FCE736C7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

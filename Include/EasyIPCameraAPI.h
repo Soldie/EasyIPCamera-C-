@@ -4,7 +4,7 @@
 
 #include "EasyTypes.h"
 
-#define RTSP_SERVER_NAME	"EasyIPCamera v1.2.16.1115"
+#define RTSP_SERVER_NAME	"EasyIPCamera v1.3.16.1206"
 
 
 typedef enum _AUTHENTICATION_TYPE_ENUM
@@ -36,10 +36,11 @@ typedef enum __EASY_IPCAMERA_STATE_T
     EASY_IPCAMERA_STATE_REQUEST_MEDIA_INFO			=		1,		//新连接,请求media info
 	EASY_IPCAMERA_STATE_REQUEST_PLAY_STREAM,						//开始发送流
 	EASY_IPCAMERA_STATE_REQUEST_STOP_STREAM,						//停止流
+	EASY_IPCAMERA_STATE_PLAY_CONTROL,
 }EASY_IPCAMERA_STATE_T;
 
 /* 回调函数定义 userptr表示用户自定义数据 */
-typedef Easy_I32 (*EasyIPCamera_Callback)(Easy_I32 channelId, EASY_IPCAMERA_STATE_T channelState, EASY_MEDIA_INFO_T *mediaInfo, void *userPtr);
+typedef Easy_I32 (*EasyIPCamera_Callback)(Easy_I32 channelId, EASY_IPCAMERA_STATE_T channelState, EASY_MEDIA_INFO_T *mediaInfo, EASY_PLAY_CONTROL_INFO_T *playCtrlInfo, void *userPtr);
 
 #ifdef __cplusplus
 extern "C"
@@ -47,22 +48,29 @@ extern "C"
 #endif
 
 #ifdef ANDROID
-	Easy_API int Easy_APICALL EasyIPCamera_Activate(char *license, char* userptr);
+	Easy_API int Easy_APICALL EasyIPCamera_Activate(char *license, char* userPtr);
 #else
 	Easy_API int Easy_APICALL EasyIPCamera_Activate(char *license);
 #endif
 	/* 启动 Rtsp Server */
 	/*设置监听端口, 回调函数及自定义数据 */
-	Easy_API Easy_I32 Easy_APICALL EasyIPCamera_Startup(Easy_U16 listenport, AUTHENTICATION_TYPE_ENUM authType, char *realm, Easy_U8 *username, Easy_U8 *password, EasyIPCamera_Callback callback, void *userptr, LIVE_CHANNEL_INFO_T *channelInfo, Easy_U32 channelNum);
+	Easy_API Easy_I32 Easy_APICALL EasyIPCamera_Startup(Easy_U16 listenport, AUTHENTICATION_TYPE_ENUM authType, 
+															char *realm, Easy_U8 *username, Easy_U8 *password, EasyIPCamera_Callback callback, void *userptr, 
+															LIVE_CHANNEL_INFO_T *channelInfo, Easy_U32 channelNum);
 	
 	/* 终止 Rtsp Server */
 	Easy_API Easy_I32 Easy_APICALL EasyIPCamera_Shutdown();
 
+	//添加用户  或    根据用户名修改用户密码
+	//如果添加的用户名不存在,则为新增, 如已存在,则为修改密码
+	Easy_API Easy_I32 Easy_APICALL EasyIPCamera_AddUser(const Easy_U8 *username, const Easy_U8 *password);
+	//删除用户
+	Easy_API Easy_I32 Easy_APICALL EasyIPCamera_DelUser(const Easy_U8 *username);
 
 	/* frame:  具体发送的帧数据 */
 	Easy_API Easy_I32 Easy_APICALL EasyIPCamera_PushFrame(Easy_I32 channelId, EASY_AV_Frame* frame );
 
-
+	//分辨率变化 只要视频或音频参数变化时, 调用 EasyIPCamera_ResetChannel
 	Easy_API Easy_I32 Easy_APICALL EasyIPCamera_ResetChannel(Easy_I32 channelId);
 #ifdef __cplusplus
 }
